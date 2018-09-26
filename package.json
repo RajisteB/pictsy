@@ -1,0 +1,15 @@
+{
+  "name": "jigsaw",
+  "version": "1.0.0",
+  "description": "Pictsy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jigsaw",
+    "pictsy"
+  ],
+  "author": "Raj Bennin",
+  "license": "ISC"
+}

@@ -1,0 +1,42 @@
+.photo-grid-container {
+  width: 98%;
+  height: 100%;
+  margin: 0 auto;
+  border: 2px solid blue;
+  padding-top: 75px;
+}
+
+.title h1 {
+  padding: 10px 0px;
+  font-size: 32px;
+}
+.title h2 {
+  padding: 5px 0px;
+  font-size: 18px;
+  line-height: 120%;
+}
+
+/* Filters */
+.filter-list {
+  color: #F8F8F8;
+  width: 95%;
+  padding: 15px 0px;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.filter-item {
+  cursor: pointer;
+  padding: 5px 10px;
+  background: black;
+  border-radius: 5px;
+  letter-spacing: 0.4px;
+}
+
+@media screen and (min-width: 1000px) {
+  .filter-list {
+    width: 40%;
+  }
+}

@@ -40,7 +40,18 @@ class App extends Component {
       <div className="App">
         <NavBar/>
         <div className="photo-grid-container">
-          <ImageFilter images={images}/>
+          <ImageFilter />
+          <div className="masonry">
+            {
+              images.map((pic, index) => {
+                return (
+                  <div className="items" key={index}>
+                    <img src={pic.images[0].link} alt=""/>
+                  </div>
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     );

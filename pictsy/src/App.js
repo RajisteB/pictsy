@@ -46,7 +46,7 @@ class App extends Component {
   render() {
     let { images, dataLoaded } = this.state;
     let cleanImgData = images.filter(x => x.images !== undefined);
-    console.log(cleanImgData);
+
     return (
       <div className="App">
         <NavBar/>

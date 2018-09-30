@@ -60,7 +60,6 @@ class Modal extends Component {
       userComments = <h3>Be the first to comment!</h3>
     }
 
-    console.log(this.state.comments);
     return (
       <ReactModal
         shouldCloseOnOverlayClick={true}

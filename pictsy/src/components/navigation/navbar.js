@@ -12,7 +12,7 @@ const NavBar = () => {
         <div className="links">
           <h3>Browse</h3>
           <h3>License</h3>
-          <button className="add-photo-btn">Contribute Photos</button>
+          <button className="add-photo-btn">Add Photos</button>
           <i className="fas fa-ellipsis-v fa-rotate-90 fa-lg"></i>
         </div>
         <i className="fas fa-ellipsis-v fa-rotate-90 fa-lg mobile-icon"></i>

@@ -1,38 +1,49 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 const Main = (props) => <div className="title">{props.children}</div>
 
-class ImageFilter extends Component {
+class ImageFilter extends PureComponent {
   constructor(props) {
     super(props);
     this.activeRef = [];
+    this.state = {
+      filteredContent: ''
+    }
   }
 
-  handleFilterClick = (id) => {
+  handleFilterClick = async (id, type) => {
+    let content;
+    // styling
     this.activeRef.map((a,i) => {
       a.style.opacity = 1;
       a.style.background = 'black';
+      a.style.color = 'white';
+      return a;
     })
+    this.activeRef[id].style.border = '0.5px solid black';
+    this.activeRef[id].style.background = 'white';
+    this.activeRef[id].style.color = 'black';
     this.activeRef[id].style.opacity = 0.4;
-    this.activeRef[id].style.background = 'skyblue';
+    content = Object.keys(FilteredList)
+      .find(item => FilteredList[item] === type)
+      .toLowerCase();
+    // set state
+    this.setState({
+      filteredContent: content
+    })
+    // filtering images
+    this.props.filterPhotos(type);
   }
 
-  componentDidMount() {
-    this.handleFilterClick(0);
+  componentDidUpdate(prevProps) {
+    if (prevProps.loaded !== this.props.loaded) 
+      this.handleFilterClick(0, 'views');
   }
 
   render() {
-    const FilteredList = {
-      Date: 'datetime',
-      Comments: 'comment_count',
-      Upvotes: 'ups',
-      Downvotes: 'downs',
-      Favorites: 'favorite_count'
-    }
-
     return (
       <Main>
         <h1>Popular Photos</h1>
-        <h2>Images with the most views in the past 30 days.</h2>
+        <h2>Images with the most <span style={{fontStyle: 'italic'}}>{this.state.filteredContent}</span> in the past 30 days.</h2>
         <br/>
         <li style={{ color: '#888', listStyleType: 'none' }}>Sort By:</li>
         <ul className="filter-list">
@@ -42,7 +53,7 @@ class ImageFilter extends Component {
                 <li 
                   key={idx}
                   className="filter-item" 
-                  onClick={() => this.handleFilterClick(idx)}
+                  onClick={() => this.handleFilterClick(idx, FilteredList[f])}
                   ref={(ref) => this.activeRef[idx] = ref}
                 >{f}</li>
               )
@@ -52,6 +63,14 @@ class ImageFilter extends Component {
       </Main>
     )
   }
+}
+
+const FilteredList = {
+  Views: 'views',
+  Comments: 'comment_count',
+  Upvotes: 'ups',
+  Downvotes: 'downs',
+  Favorites: 'favorite_count'
 }
 
 export default ImageFilter

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ImageFilter from './components/filter/imageFilter.js';
 import NavBar from './components/navigation/navbar.js';
+import ImageGrid from './components/grid/imageGrid.js';
 import { IMGUR_CLIENT_KEY } from './config.js';
 import axios from 'axios';
 import './App.css';
@@ -10,6 +11,7 @@ class App extends Component {
     super();
     this.state = {
       images: [],
+      dataLoaded: false,
     }
   }
 
@@ -23,35 +25,39 @@ class App extends Component {
     .then(res => {
       imageGridArr = res.data.data.items.slice();
       this.setState({
-        images: imageGridArr
+        images: imageGridArr,
+        dataLoaded: true
       })
-      console.log(res.data.data);
     })
     .catch(err => console.log(err));
   }
 
-  componentDidMount() {
-    this.getImgurPhotos();
+  filterImgurPhotos = (filter) => {
+    let sorted = this.state.images.sort((a, b) => b[filter] - a[filter]);
+    this.setState({
+      images: sorted,
+    })
+  }
+  
+  async componentDidMount() {
+    await this.getImgurPhotos();
   }
 
   render() {
-    let { images } = this.state;
+    let { images, dataLoaded } = this.state;
+    let cleanImgData = images.filter(x => x.images !== undefined);
+    console.log(cleanImgData);
     return (
       <div className="App">
         <NavBar/>
         <div className="photo-grid-container">
-          <ImageFilter />
-          <div className="masonry">
-            {
-              images.map((pic, index) => {
-                return (
-                  <div className="items" key={index}>
-                    <img src={pic.images[0].link} alt=""/>
-                  </div>
-                )
-              })
-            }
-          </div>
+          <ImageFilter 
+            filterPhotos={this.filterImgurPhotos}
+            loaded={dataLoaded}
+          />
+          <ImageGrid 
+            cleanImgs={cleanImgData}
+          />
         </div>
       </div>
     );

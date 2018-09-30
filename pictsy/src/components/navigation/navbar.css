@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   position: fixed;
+  z-index: 10;
 }
 .mobile-icon {
   padding: 0px 20px;
